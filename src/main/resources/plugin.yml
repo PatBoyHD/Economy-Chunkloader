@@ -1,0 +1,12 @@
+name: EcChunkloader
+version: '${project.version}'
+main: de.patboyhd.economychunkloader.Main
+api-version: 1.19
+authors: [ PatBoyHD ]
+description: Kleines Plugin, um Spieler gegen Austausch eine Währung Chunks laden zu lassen.
+
+commands:
+  load-chunk:
+    description: forceloads a Chunk!
+  unload-chunk:
+    description: un-forceloads a Chunk!
