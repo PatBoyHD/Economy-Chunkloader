@@ -1,6 +1,6 @@
 package de.patboyhd.economychunkloader.commands;
 
-import de.patboyhd.economychunkloader.DataManager;
+import de.patboyhd.economychunkloader.FileManager;
 import de.patboyhd.economychunkloader.Main;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -14,7 +14,8 @@ import java.util.UUID;
 public class UnloadChunk implements CommandExecutor{
 
     private Main plugin;
-    public DataManager data;
+    public FileManager data;
+    private String data_name = "data.yml";
 
     public UnloadChunk(Main plugin) {
         this.plugin = plugin;
@@ -33,7 +34,7 @@ public class UnloadChunk implements CommandExecutor{
 
 
             if (chunk.isForceLoaded()) {
-                this.data = new DataManager(this.plugin);
+                this.data = new FileManager(this.plugin, data_name);
 
                 int count = 0;
 

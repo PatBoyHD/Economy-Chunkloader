@@ -1,7 +1,6 @@
 package de.patboyhd.economychunkloader.commands;
 
-import de.patboyhd.economychunkloader.ConfigManager;
-import de.patboyhd.economychunkloader.DataManager;
+import de.patboyhd.economychunkloader.FileManager;
 import de.patboyhd.economychunkloader.Main;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -12,14 +11,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class LoadChunk implements CommandExecutor {
 
     private Main plugin;
-    public DataManager data;
-    public ConfigManager config;
+    public FileManager data;
+    public FileManager config;
+    private String config_name = "config.yml";
+    private String data_name = "data.yml";
 
     public LoadChunk(Main plugin) {
         this.plugin = plugin;
@@ -46,7 +46,7 @@ public class LoadChunk implements CommandExecutor {
             } else {
 
 
-                this.config = new ConfigManager(this.plugin);
+                this.config = new FileManager(this.plugin, config_name);
 
                 int max_count = this.config.getConfig().getInt("Max-Chunks");
                 String item = this.config.getConfig().get("Bezahlung.Item").toString();
@@ -72,7 +72,7 @@ public class LoadChunk implements CommandExecutor {
 
                     if (item_count >= item_min_count) {
 
-                        this.data = new DataManager(this.plugin);
+                        this.data = new FileManager(this.plugin, data_name);
 
 
                         int count = 0;

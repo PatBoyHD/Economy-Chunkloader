@@ -8,8 +8,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {
 
-    public DataManager data;
-    public ConfigManager config;
+    public FileManager data;
+    public FileManager config;
+    private String config_name = "config.yml";
+    private String data_name = "data.yml";
 
     @Override
     public void onEnable() {
@@ -17,8 +19,8 @@ public final class Main extends JavaPlugin {
         Bukkit.getLogger().fine("Plugin wird aktiviert.");
 
         this.saveDefaultConfig();//Create config file & folder
-        this.data = new DataManager(this);
-        this.config = new ConfigManager(this);
+        this.data = new FileManager(this, data_name);
+        this.config = new FileManager(this, config_name);
 
         setupConfig();
 
