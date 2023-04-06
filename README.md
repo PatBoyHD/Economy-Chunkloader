@@ -5,7 +5,6 @@ This is a little plugin, which allows players to forceload Chunks in exchange of
 **You can't use /forceload add xy when using this plugin. As soon as the server is reloaded or restartet, all chunks which weren't forceloaded by the plugin will be un-forceloaded. That's what the admin commands are for!**
 
 You have some customizabillity via the config.yml:
-
 Bezahlung:
   Item: NETHERITE_INGOT <- The Item which the player needs to pay
   Anzahl: 1 <- total amount they need to pay
