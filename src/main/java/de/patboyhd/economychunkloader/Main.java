@@ -1,5 +1,7 @@
 package de.patboyhd.economychunkloader;
 
+import de.patboyhd.economychunkloader.commands.AdminLoadChunk;
+import de.patboyhd.economychunkloader.commands.AdminUnloadChunk;
 import de.patboyhd.economychunkloader.commands.LoadChunk;
 import de.patboyhd.economychunkloader.commands.UnloadChunk;
 import org.bukkit.Bukkit;
@@ -8,8 +10,6 @@ import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.print.DocFlavor;
-import java.rmi.server.ExportException;
 import java.util.UUID;
 
 public final class Main extends JavaPlugin {
@@ -35,12 +35,14 @@ public final class Main extends JavaPlugin {
         commandRegistration();
 
         syncChunks();
-        
+
         // TODO klasse machen, die inhalt der config datei in ein objekt umwandelt.
         //  In loadChunk nicht mehr config auslesen lassen,
         //  sondern dem Konstruktor das Objekt übergeben
         // TODO /reload-config Befehl
         // TODO /ecc-world-blacklist add/remove/list command, um Welten zu Blacklisten
+        // TODO /admin-load-chunk --> uses "server" as owner id, ignores limit
+        // TODO /admin-unload-chunk --> unloads chunk, ignores owner
     }
 
     @Override
@@ -58,9 +60,8 @@ public final class Main extends JavaPlugin {
     private void commandRegistration() {
         getCommand("load-chunk").setExecutor(new LoadChunk(this));
         getCommand("unload-chunk").setExecutor(new UnloadChunk(this));
-
-
-
+        getCommand("admin-load-chunk").setExecutor(new AdminLoadChunk(this));
+        getCommand("admin-unload-chunk").setExecutor(new AdminUnloadChunk(this));
     }
 
     private void setupConfig() {

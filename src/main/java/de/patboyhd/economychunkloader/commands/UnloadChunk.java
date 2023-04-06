@@ -27,55 +27,54 @@ public class UnloadChunk implements CommandExecutor{
         if(!(sender instanceof Player)) {
             sender.sendMessage("You are not a player, nu uh!");
         } else { //Code goes here
-            if (args.length >= 1 && args[0].equals("confirm")) {
+
+            Player player = (Player) sender;
+            UUID uuid = player.getUniqueId(); // this should work
+            Location location = player.getLocation();
+            Chunk chunk = location.getChunk();
+            String chunk_coords = Integer.toString(chunk.getX()) + "," + Integer.toString(chunk.getZ());
 
 
+            if (chunk.isForceLoaded()) {
+                this.data = new FileManager(this.plugin, data_name);
 
+                String uuid_data = null;
 
-                Player player = (Player) sender;
-                UUID uuid = player.getUniqueId(); // this should work
-                Location location = player.getLocation();
-                Chunk chunk = location.getChunk();
-                String chunk_coords = Integer.toString(chunk.getX()) + "," + Integer.toString(chunk.getZ());
-
-
-                if (chunk.isForceLoaded()) {
-                    this.data = new FileManager(this.plugin, data_name);
+                // gets the owner uuid if the chunk is owned
+                if (this.data.getConfig().contains("chunks." + chunk_coords)) {
+                    uuid_data = this.data.getConfig().getString("chunks." + chunk_coords + ".owner");
 
                     int count = 0;
-
-                    String uuid_data = null;
 
                     // gets the count if existent
                     if (this.data.getConfig().contains("players." + uuid.toString() + ".count"))
                         count = this.data.getConfig().getInt("players." + uuid.toString() + ".count");
 
-                    // gets the owner uuid if the chunk is owned
-                    if (this.data.getConfig().contains("chunks." + chunk_coords))
-                        uuid_data = this.data.getConfig().getString("chunks." + chunk_coords + ".owner");
-
                     // Checks if it's the players Chunk
                     if (uuid.toString().equals(uuid_data)) {
-                        chunk.setForceLoaded(false);
-                        sender.sendMessage("This Chunk is no longer forceloaded: " + chunk_coords);
+                        if (args.length >= 1 && args[0].equals("confirm")) {
+                            chunk.setForceLoaded(false);
+                            sender.sendMessage("This Chunk is no longer forceloaded: " + chunk_coords);
 
-                        //Chunk aus der YAMl Datei löschen und count senken
-                        data.getConfig().set("chunks." + chunk_coords, null);
-                        data.getConfig().set("players." + uuid.toString() + ".count", count - 1);
-                        data.saveConfig();
+                            //Chunk aus der YAMl Datei löschen und count senken
+                            data.getConfig().set("chunks." + chunk_coords, null);
+                            data.getConfig().set("players." + uuid.toString() + ".count", count - 1);
+                            data.saveConfig();
+                        } else {
+                            sender.sendMessage("Are you sure you want to un-forceload this Chunk?\nIf you are, type /unload_chunk confirm");
+                        }
+
                     } else {
                         sender.sendMessage("You can't unload Chunks of other players!");
                     }
+
                 } else {
-                    sender.sendMessage("This Chunk isn't forceloaded to begin with!");
+                    sender.sendMessage("You can't unload Chunks of other players!");
                 }
 
             } else {
-                sender.sendMessage("Are you sure you want to un-forceload this Chunk?\nIf you are sure, type /unload_chunk confirm");
+                sender.sendMessage("This Chunk isn't forceloaded to begin with!");
             }
-
-
-
 
         }
         return false;

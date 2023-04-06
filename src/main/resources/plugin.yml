@@ -10,3 +10,7 @@ commands:
     description: forceloads a Chunk!
   unload-chunk:
     description: un-forceloads a Chunk!
+  admin-load-chunk:
+    description: forceloads a Chunk, ignores the per-player limit!
+  admin-unload-chunk:
+    description: un-forceloads a Chunk, no matter who the owner is!
