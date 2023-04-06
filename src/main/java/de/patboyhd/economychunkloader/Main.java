@@ -28,7 +28,6 @@ public final class Main extends JavaPlugin {
         commandRegistration();
 
         // TODO Aus der data Datei alle Chunks forceloaden lassen bei enable
-        // TODO UnloadChunk => nochmal nachfragen. Nur wenn man "unload-chunk confirm" eingibt, soll ers machen!!!
     }
 
     @Override
