@@ -37,8 +37,6 @@ public final class Main extends JavaPlugin {
         //  In loadChunk nicht mehr config auslesen lassen, sondern dem Konstruktor das Objekt übergeben
         // TODO /reload-config Befehl
         // TODO /ecc-world-blacklist add/remove/list command, um Welten zu Blacklisten
-        // TODO Neuer Eintrag in der Config Datei: max_total_chunks --> Maximale Chunks in der ganzen Welt,
-        //  Adminchunks haben nen eigenen count, man kann als admin mehr als das limit machen, kriegt aber dann ne warnung.
         // TODO Siehe LoadChunk
     }
 
