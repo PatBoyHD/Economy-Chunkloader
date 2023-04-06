@@ -1,5 +1,5 @@
 # Economy-Chunkloader
-This is a little plugin, which allows players to forceload Chunks in exchange of a payment.
+This is a little plugin which allows players to forceload Chunks in exchange of a payment.
 
 ## Usage:
 **You can't use /forceload add xy when using this plugin. As soon as the server is reloaded or restartet, all chunks which weren't forceloaded by the plugin will be un-forceloaded. That's what the admin commands are for!**
