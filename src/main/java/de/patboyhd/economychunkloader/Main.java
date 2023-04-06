@@ -35,8 +35,7 @@ public final class Main extends JavaPlugin {
         commandRegistration();
 
         syncChunks();
-
-        // TODO Aus der data Datei alle Chunks forceloaden lassen bei enable
+        
         // TODO klasse machen, die inhalt der config datei in ein objekt umwandelt.
         //  In loadChunk nicht mehr config auslesen lassen,
         //  sondern dem Konstruktor das Objekt übergeben
