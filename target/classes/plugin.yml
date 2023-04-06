@@ -7,10 +7,12 @@ description: Kleines Plugin, um Spieler gegen Austausch eine Währung Chunks lad
 
 commands:
   load-chunk:
-    description: forceloads a Chunk!
+    description: forceloads a chunk!
   unload-chunk:
-    description: un-forceloads a Chunk!
+    description: un-forceloads a chunk!
   admin-load-chunk:
-    description: forceloads a Chunk, ignores the per-player limit!
+    description: forceloads a chunk, ignores the per-player limit!
   admin-unload-chunk:
-    description: un-forceloads a Chunk, no matter who the owner is!
+    description: un-forceloads a chunk, no matter who the owner is!
+  admin-chunk-count:
+    description: Gives the number of forceloaded chunks in form of (chunks/max_allowed_chunks)!

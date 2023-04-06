@@ -41,14 +41,24 @@ public class AdminLoadChunk implements CommandExecutor {
                 if (chunk.isForceLoaded()) {
                     sender.sendMessage("This Chunk is already forceloaded! ");
                 } else {
+                    this.config = new FileManager(this.plugin, config_name);
                     this.data = new FileManager(this.plugin, data_name);
+                    int max_chunks = this.config.getConfig().getInt("Max-Total-Chunks");
+                    int chunks_total_count = this.data.getConfig().getInt("chunks-count.count") + data.getConfig().getInt("chunks-count.admin-count") + 1;
+
+                    if (chunks_total_count > max_chunks) {
+                        player.sendMessage("Warning! You are surpassing the serverwide limit of forcelaoded chunks! (" +
+                                chunks_total_count + "/" + max_chunks + ")");
+                    }
                     chunk.setForceLoaded(true);
                     sender.sendMessage("This Chunk will now always be loaded: " + chunk_coords);
 
                     //UUID mit dem Chunk in eine YAML Datei speichern
                     data.getConfig().set("chunks." + chunk_coords + ".owner", "server");
                     data.getConfig().set("chunks." + chunk_coords + ".world", world);
+                    data.getConfig().set("chunks-count.admin-count", data.getConfig().getInt("chunks-count.admin-count") + 1);
                     data.saveConfig();
+
                 }
             } else
                 player.sendMessage("You do not have the permission to use this command.");

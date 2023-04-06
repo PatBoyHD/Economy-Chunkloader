@@ -59,6 +59,7 @@ public class UnloadChunk implements CommandExecutor{
                             //Chunk aus der YAMl Datei löschen und count senken
                             data.getConfig().set("chunks." + chunk_coords, null);
                             data.getConfig().set("players." + uuid.toString() + ".count", count - 1);
+                            data.getConfig().set("chunks-count.count", data.getConfig().getInt("chunks-count.count") - 1);
                             data.saveConfig();
                         } else {
                             sender.sendMessage("Are you sure you want to un-forceload this Chunk?\nIf you are, type /unload_chunk confirm");

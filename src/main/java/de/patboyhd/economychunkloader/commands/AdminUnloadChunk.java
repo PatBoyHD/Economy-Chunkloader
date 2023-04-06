@@ -47,6 +47,9 @@ public class AdminUnloadChunk implements CommandExecutor{
                         if (!chunk_owner.equals("server")) {
                             int count = this.data.getConfig().getInt("players." + chunk_owner + ".count");
                             data.getConfig().set("players." + chunk_owner + ".count", count - 1);
+                            data.getConfig().set("chunks-count.count", data.getConfig().getInt("chunks-count.count") - 1);
+                        } else {
+                            data.getConfig().set("chunks-count.admin-count", data.getConfig().getInt("chunks-count.admin-count") - 1);
                         }
                         data.getConfig().set("chunks." + chunk_coords, null);
                         data.saveConfig();

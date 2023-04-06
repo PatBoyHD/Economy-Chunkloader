@@ -1,9 +1,6 @@
 package de.patboyhd.economychunkloader;
 
-import de.patboyhd.economychunkloader.commands.AdminLoadChunk;
-import de.patboyhd.economychunkloader.commands.AdminUnloadChunk;
-import de.patboyhd.economychunkloader.commands.LoadChunk;
-import de.patboyhd.economychunkloader.commands.UnloadChunk;
+import de.patboyhd.economychunkloader.commands.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
@@ -29,7 +26,7 @@ public final class Main extends JavaPlugin {
         this.data = new FileManager(this, data_name);
         this.config = new FileManager(this, config_name);
 
-        setupConfig();
+        setupFiles();
 
         listenerRegistration();
         commandRegistration();
@@ -37,12 +34,12 @@ public final class Main extends JavaPlugin {
         syncChunks();
 
         // TODO klasse machen, die inhalt der config datei in ein objekt umwandelt.
-        //  In loadChunk nicht mehr config auslesen lassen,
-        //  sondern dem Konstruktor das Objekt übergeben
+        //  In loadChunk nicht mehr config auslesen lassen, sondern dem Konstruktor das Objekt übergeben
         // TODO /reload-config Befehl
         // TODO /ecc-world-blacklist add/remove/list command, um Welten zu Blacklisten
-        // TODO /admin-load-chunk --> uses "server" as owner id, ignores limit
-        // TODO /admin-unload-chunk --> unloads chunk, ignores owner
+        // TODO Neuer Eintrag in der Config Datei: max_total_chunks --> Maximale Chunks in der ganzen Welt,
+        //  Adminchunks haben nen eigenen count, man kann als admin mehr als das limit machen, kriegt aber dann ne warnung.
+        // TODO Siehe LoadChunk
     }
 
     @Override
@@ -62,16 +59,28 @@ public final class Main extends JavaPlugin {
         getCommand("unload-chunk").setExecutor(new UnloadChunk(this));
         getCommand("admin-load-chunk").setExecutor(new AdminLoadChunk(this));
         getCommand("admin-unload-chunk").setExecutor(new AdminUnloadChunk(this));
+        getCommand("admin-chunk-count").setExecutor(new AdminChunkCount(this));
     }
 
-    private void setupConfig() {
+    private void setupFiles() {
+        //config.yml
         if (!config.getConfig().contains("Bezahlung.Item"))
             config.getConfig().set("Bezahlung.Item","NETHERITE_INGOT");
         if (!config.getConfig().contains("Bezahlung.Anzahl"))
             config.getConfig().set("Bezahlung.Anzahl", 1);
         if (!config.getConfig().contains("Max-Chunks"))
             config.getConfig().set("Max-Chunks", 3);
+        if (!config.getConfig().contains("Max-Total-Chunks"))
+            config.getConfig().set("Max-Total-Chunks", 300);
+
+        //data.yml
+        if (!data.getConfig().contains("chunks-count")) {
+
+            data.getConfig().set("chunks-count.count", 0);
+            data.getConfig().set("chunks-count.admin-count", 0);
+        }
         config.saveConfig();
+        data.saveConfig();
     }
 
     private void syncChunks() {
