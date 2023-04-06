@@ -38,6 +38,9 @@ public final class Main extends JavaPlugin {
         // TODO /reload-config Befehl
         // TODO /ecc-world-blacklist add/remove/list command, um Welten zu Blacklisten
         // TODO Siehe LoadChunk
+        // TODO /admin-list-chunks a list of all loaded chunks
+        // TODO /list-chunks lists ur own chunks, maybe yml for every player????
+        // TODO /unload-chunk and admin-unload-chunk take parameters of the chunk coords
     }
 
     @Override
@@ -83,15 +86,15 @@ public final class Main extends JavaPlugin {
 
     private void syncChunks() {
         try {
-            if (data.getConfig().contains("chunks")) {
+            String chunk_coords = null;
+            String world_uid = null;
+            if (data.getConfig().contains("chunks") && data.getConfig().getConfigurationSection("chunks").getKeys(false) != null) {
 
                 String world_str = null;
                 UUID world_uuid = null;
                 Integer chunk_x = null;
                 Integer chunk_z = null;
 
-                String chunk_coords = null;
-                String world_uid = null;
 
                 //un-forceload all chunks in all worlds that are not in data.yml
                 for (World world : getServer().getWorlds()) {
@@ -119,7 +122,12 @@ public final class Main extends JavaPlugin {
                     getServer().getWorld(world_uuid).setChunkForceLoaded(chunk_x, chunk_z, true);
                 }
             } else {
-                this.getLogger().info("No chunks to forceload!");
+                //un-forceload all chunks in all worlds that are not in data.yml
+                for (World world : getServer().getWorlds()) {
+                    for (Chunk chunk_world : world.getForceLoadedChunks()) {
+                        chunk_world.setForceLoaded(false);
+                    }
+                }
             }
         } catch (Exception e) {
             this.getLogger().info("Error loading chunks: " + e);

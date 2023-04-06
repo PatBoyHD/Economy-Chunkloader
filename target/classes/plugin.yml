@@ -15,4 +15,4 @@ commands:
   admin-unload-chunk:
     description: un-forceloads a chunk, no matter who the owner is!
   admin-chunk-count:
-    description: Gives the number of forceloaded chunks in form of (chunks/max_allowed_chunks)!
+    description: Gives the number of forceloaded chunks in form of (chunks/max_allowed_total_chunks)!
