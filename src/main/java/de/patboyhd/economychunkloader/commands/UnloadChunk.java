@@ -36,6 +36,7 @@ public class UnloadChunk implements CommandExecutor{
                 UUID uuid = player.getUniqueId(); // this should work
                 Location location = player.getLocation();
                 Chunk chunk = location.getChunk();
+                String chunk_coords = Integer.toString(chunk.getX()) + "," + Integer.toString(chunk.getZ());
 
 
                 if (chunk.isForceLoaded()) {
@@ -50,16 +51,16 @@ public class UnloadChunk implements CommandExecutor{
                         count = this.data.getConfig().getInt("players." + uuid.toString() + ".count");
 
                     // gets the owner uuid if the chunk is owned
-                    if (this.data.getConfig().contains("chunks." + chunk))
-                        uuid_data = this.data.getConfig().getString("chunks." + chunk + ".owner");
+                    if (this.data.getConfig().contains("chunks." + chunk_coords))
+                        uuid_data = this.data.getConfig().getString("chunks." + chunk_coords + ".owner");
 
                     // Checks if it's the players Chunk
                     if (uuid.toString().equals(uuid_data)) {
                         chunk.setForceLoaded(false);
-                        sender.sendMessage("This Chunk is no longer forceloaded: " + chunk);
+                        sender.sendMessage("This Chunk is no longer forceloaded: " + chunk_coords);
 
                         //Chunk aus der YAMl Datei löschen und count senken
-                        data.getConfig().set("chunks." + chunk, null);
+                        data.getConfig().set("chunks." + chunk_coords, null);
                         data.getConfig().set("players." + uuid.toString() + ".count", count - 1);
                         data.saveConfig();
                     } else {

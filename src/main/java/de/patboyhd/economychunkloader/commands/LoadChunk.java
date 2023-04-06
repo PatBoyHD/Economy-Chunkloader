@@ -25,10 +25,6 @@ public class LoadChunk implements CommandExecutor {
         this.plugin = plugin;
     }
 
-
-
-
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)) {
@@ -38,8 +34,8 @@ public class LoadChunk implements CommandExecutor {
             UUID uuid = player.getUniqueId(); // this should work
             Location location = player.getLocation();
             Chunk chunk = location.getChunk();
-            //String chunk_coords = Integer.toString(chunk.getX()) + "," + Integer.toString(chunk.getZ());
-
+            String chunk_coords = Integer.toString(chunk.getX()) + "," + Integer.toString(chunk.getZ());
+            String world = player.getWorld().getUID().toString();
 
             if (chunk.isForceLoaded()) {
                 sender.sendMessage("This Chunk is already forceloaded! ");
@@ -82,13 +78,15 @@ public class LoadChunk implements CommandExecutor {
 
                         if (count < max_count) {
                             chunk.setForceLoaded(true);
-                            sender.sendMessage("This Chunk will now always be loaded: " + chunk.toString());
+                            sender.sendMessage("This Chunk will now always be loaded: " + chunk_coords);
                             player.getInventory().removeItem(new ItemStack(item_material, item_min_count));
 
                             //UUID mit dem Chunk in eine YAML Datei speichern und count erhöhen
-                            data.getConfig().set("chunks." + chunk + ".owner", uuid.toString());
+                            data.getConfig().set("chunks." + chunk_coords + ".owner", uuid.toString());
+                            data.getConfig().set("chunks." + chunk_coords + ".world", world);
                             data.getConfig().set("players." + uuid.toString() + ".count", count + 1);
                             data.saveConfig();
+
                         } else {
                             sender.sendMessage("You reached the maximum number of Chunks you can load (" + count + ")!");
                         }
