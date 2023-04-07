@@ -1,5 +1,6 @@
 package de.patboyhd.economychunkloader.commands;
 
+import de.patboyhd.economychunkloader.ConfigLoader;
 import de.patboyhd.economychunkloader.FileManager;
 import de.patboyhd.economychunkloader.Main;
 import org.bukkit.Chunk;
@@ -17,12 +18,12 @@ public class AdminLoadChunk implements CommandExecutor {
 
     private Main plugin;
     public FileManager data;
-    public FileManager config;
-    private String config_name = "config.yml";
+    public ConfigLoader config;
     private String data_name = "data.yml";
 
-    public AdminLoadChunk(Main plugin) {
+    public AdminLoadChunk(Main plugin, ConfigLoader config) {
         this.plugin = plugin;
+        this.config = config;
     }
 
     @Override
@@ -41,9 +42,8 @@ public class AdminLoadChunk implements CommandExecutor {
                 if (chunk.isForceLoaded()) {
                     sender.sendMessage("This Chunk is already forceloaded! ");
                 } else {
-                    this.config = new FileManager(this.plugin, config_name);
                     this.data = new FileManager(this.plugin, data_name);
-                    int max_chunks = this.config.getConfig().getInt("Max-Total-Chunks");
+                    int max_chunks = this.config.getMax_total_chunks();
                     int chunks_total_count = this.data.getConfig().getInt("chunks-count.count") + data.getConfig().getInt("chunks-count.admin-count") + 1;
 
                     if (chunks_total_count > max_chunks) {

@@ -13,6 +13,7 @@ public final class Main extends JavaPlugin {
 
     public FileManager data;
     public FileManager config;
+    public ConfigLoader config_object;
     private String config_name = "config.yml";
     private String data_name = "data.yml";
 
@@ -28,19 +29,22 @@ public final class Main extends JavaPlugin {
 
         setupFiles();
 
+        // create config_object. It will be passed to all commands that need info about the config,
+        // so they do not need too open it
+        this.config_object = new ConfigLoader(this);
+
         listenerRegistration();
         commandRegistration();
 
         syncChunks();
 
-        // TODO klasse machen, die inhalt der config datei in ein objekt umwandelt.
-        //  In loadChunk nicht mehr config auslesen lassen, sondern dem Konstruktor das Objekt übergeben
         // TODO /reload-config Befehl
         // TODO /ecc-world-blacklist add/remove/list command, um Welten zu Blacklisten
         // TODO Siehe LoadChunk
         // TODO /admin-list-chunks a list of all loaded chunks
         // TODO /list-chunks lists ur own chunks, maybe yml for every player????
         // TODO /unload-chunk and admin-unload-chunk take parameters of the chunk coords
+        // TODO data.yml nicht dauernd öffnen müssen, stattdessen hashmap nutzen und dann später in data.yml speichern bei nem ServerSpeicherEvent oder so.
     }
 
     @Override
@@ -56,11 +60,11 @@ public final class Main extends JavaPlugin {
     }
 
     private void commandRegistration() {
-        getCommand("load-chunk").setExecutor(new LoadChunk(this));
+        getCommand("load-chunk").setExecutor(new LoadChunk(this, config_object));
         getCommand("unload-chunk").setExecutor(new UnloadChunk(this));
-        getCommand("admin-load-chunk").setExecutor(new AdminLoadChunk(this));
+        getCommand("admin-load-chunk").setExecutor(new AdminLoadChunk(this, config_object));
         getCommand("admin-unload-chunk").setExecutor(new AdminUnloadChunk(this));
-        getCommand("admin-chunk-count").setExecutor(new AdminChunkCount(this));
+        getCommand("admin-chunk-count").setExecutor(new AdminChunkCount(this, config_object));
     }
 
     private void setupFiles() {

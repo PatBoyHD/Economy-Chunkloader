@@ -1,5 +1,6 @@
 package de.patboyhd.economychunkloader.commands;
 
+import de.patboyhd.economychunkloader.ConfigLoader;
 import de.patboyhd.economychunkloader.FileManager;
 import de.patboyhd.economychunkloader.Main;
 import org.bukkit.Chunk;
@@ -17,12 +18,12 @@ public class LoadChunk implements CommandExecutor {
 
     private Main plugin;
     public FileManager data;
-    public FileManager config;
-    private String config_name = "config.yml";
+    public ConfigLoader config;
     private String data_name = "data.yml";
 
-    public LoadChunk(Main plugin) {
+    public LoadChunk(Main plugin, ConfigLoader config) {
         this.plugin = plugin;
+        this.config = config;
     }
 
     @Override
@@ -42,17 +43,16 @@ public class LoadChunk implements CommandExecutor {
             } else {
 
 
-                this.config = new FileManager(this.plugin, config_name);
 
-                int max_count = this.config.getConfig().getInt("Max-Chunks");
-                String item = this.config.getConfig().get("Bezahlung.Item").toString();
-                int max_chunks = this.config.getConfig().getInt("Max-Total-Chunks");
+                int max_count = this.config.getMax_chunks();
+                String item = this.config.getPayment_item();
+                int max_chunks = this.config.getMax_total_chunks();
 
-                Material item_material = Material.matchMaterial(this.config.getConfig().get("Bezahlung.Item").toString());
+                Material item_material = Material.matchMaterial(this.config.getPayment_item());
 
                 //Material item_material = (Material) this.config.getConfig().get("Bezahlung.Item");
 
-                int item_min_count = this.config.getConfig().getInt("Bezahlung.Anzahl");
+                int item_min_count = this.config.getPayment_count();
 
 
                 int item_count = 0;
