@@ -18,6 +18,10 @@ public final class Main extends JavaPlugin {
     private String data_name = "data.yml";
 
 
+    public void setConfig_object(ConfigLoader config_object) {
+        this.config_object = config_object;
+    }
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -38,7 +42,6 @@ public final class Main extends JavaPlugin {
 
         syncChunks();
 
-        // TODO /reload-config Befehl
         // TODO /ecc-world-blacklist add/remove/list command, um Welten zu Blacklisten
         // TODO Siehe LoadChunk
         // TODO /admin-list-chunks a list of all loaded chunks

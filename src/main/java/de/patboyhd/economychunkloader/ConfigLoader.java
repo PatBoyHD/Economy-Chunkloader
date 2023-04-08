@@ -43,5 +43,4 @@ public class ConfigLoader {
             plugin.getLogger().log(Level.WARNING, "Error loading config! All configurations will be set to default!", e);
         }
     }
-
 }
