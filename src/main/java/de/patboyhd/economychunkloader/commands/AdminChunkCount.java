@@ -29,7 +29,7 @@ public class AdminChunkCount implements CommandExecutor {
             this.data = new FileManager(this.plugin, data_name);
             int max_chunks = this.config.getMax_total_chunks();
             int chunks_total_count = this.data.getConfig().getInt("chunks-count.count") + data.getConfig().getInt("chunks-count.admin-count");
-            sender.sendMessage("There are " + chunks_total_count + "/" + max_chunks + " chunks.");
+            sender.sendMessage("There are " + chunks_total_count + "/" + max_chunks + " forceloaded chunks.");
         } else { //Code goes here
             Player player = (Player) sender;
 
@@ -37,7 +37,7 @@ public class AdminChunkCount implements CommandExecutor {
                 this.data = new FileManager(this.plugin, data_name);
                 int max_chunks = this.config.getMax_total_chunks();
                 int chunks_total_count = this.data.getConfig().getInt("chunks-count.count") + data.getConfig().getInt("chunks-count.admin-count");
-                player.sendMessage("There are " + chunks_total_count + "/" + max_chunks + " chunks.");
+                player.sendMessage("There are " + chunks_total_count + "/" + max_chunks + " forceloaded chunks.");
             } else
                 player.sendMessage("You do not have the permission to use this command.");
         }

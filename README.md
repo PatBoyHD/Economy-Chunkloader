@@ -6,9 +6,9 @@ This is a little plugin which allows players to forceload Chunks in exchange of 
 
 **You have some customizabillity via the config.yml:**
 
-Bezahlung:  
+Payment:  
 &nbsp;&nbsp;&nbsp;&nbsp;Item: NETHERITE_INGOT ⬅️ The Item which the player needs to pay  
-&nbsp;&nbsp;&nbsp;&nbsp;Anzahl: 1 ⬅️ total amount they need to pay  
+&nbsp;&nbsp;&nbsp;&nbsp;Amount: 1 ⬅️ total amount they need to pay  
 Max-Chunks: 3 ⬅️ max chunks a player can have  
 Max-Total-Chunks: 300 ⬅️ Count of forceloaded chunks there may be in the world (Admin Chunks do not count and can surpass that limit, stay safe)  
 

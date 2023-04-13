@@ -35,8 +35,8 @@ public class ConfigLoader {
         FileManager config;
         config = new FileManager(plugin, config_name);
         try {
-            payment_item = config.getConfig().getString("Bezahlung.Item");
-            payment_count = config.getConfig().getInt("Bezahlung.Anzahl");
+            payment_item = config.getConfig().getString("Payment.Item");
+            payment_count = config.getConfig().getInt("Payment.Amount");
             max_chunks = config.getConfig().getInt("Max-Chunks");
             max_total_chunks = config.getConfig().getInt("Max-Total-Chunks");
         } catch (Exception e) {

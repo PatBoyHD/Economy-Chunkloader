@@ -40,7 +40,7 @@ public class AdminLoadChunk implements CommandExecutor {
                 String world = player.getWorld().getUID().toString();
 
                 if (chunk.isForceLoaded()) {
-                    sender.sendMessage("This Chunk is already forceloaded! ");
+                    sender.sendMessage("This chunk is already forceloaded! ");
                 } else {
                     this.data = new FileManager(this.plugin, data_name);
                     int max_chunks = this.config.getMax_total_chunks();
@@ -51,7 +51,7 @@ public class AdminLoadChunk implements CommandExecutor {
                                 chunks_total_count + "/" + max_chunks + ")");
                     }
                     chunk.setForceLoaded(true);
-                    sender.sendMessage("This Chunk will now always be loaded: " + chunk_coords);
+                    sender.sendMessage("This chunk is now forceloaded: " + chunk_coords);
 
                     //UUID mit dem Chunk in eine YAML Datei speichern
                     data.getConfig().set("chunks." + chunk_coords + ".owner", "server");

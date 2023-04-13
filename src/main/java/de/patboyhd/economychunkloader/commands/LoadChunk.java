@@ -39,7 +39,7 @@ public class LoadChunk implements CommandExecutor {
             String world = player.getWorld().getUID().toString();
 
             if (chunk.isForceLoaded()) {
-                sender.sendMessage("This Chunk is already forceloaded! ");
+                sender.sendMessage("This chunk is already forceloaded! ");
             } else {
 
 
@@ -50,7 +50,7 @@ public class LoadChunk implements CommandExecutor {
 
                 Material item_material = Material.matchMaterial(this.config.getPayment_item());
 
-                //Material item_material = (Material) this.config.getConfig().get("Bezahlung.Item");
+                //Material item_material = (Material) this.config.getConfig().get("Payment.Item");
 
                 int item_min_count = this.config.getPayment_count();
 
@@ -81,10 +81,10 @@ public class LoadChunk implements CommandExecutor {
                             // TODO this could be far more outside
                             if (data.getConfig().getInt("chunks-count.count") < max_chunks) {
                                 chunk.setForceLoaded(true);
-                                sender.sendMessage("This Chunk will now always be loaded: " + chunk_coords);
+                                sender.sendMessage("This chunk is now forceloaded: " + chunk_coords);
                                 player.getInventory().removeItem(new ItemStack(item_material, item_min_count));
 
-                                //UUID mit dem Chunk in eine YAML Datei speichern und count erhöhen
+                                //safe UUID together with chunk in the data.yml file and increment count
                                 data.getConfig().set("chunks." + chunk_coords + ".owner", uuid.toString());
                                 data.getConfig().set("chunks." + chunk_coords + ".world", world);
                                 data.getConfig().set("players." + uuid.toString() + ".count", count + 1);
@@ -95,18 +95,18 @@ public class LoadChunk implements CommandExecutor {
                                         "The serverwide maximum number of forceloaded Chunks has been reached!");
                             }
                         } else {
-                            sender.sendMessage("You reached the maximum number of Chunks you can load (" + count + ")!");
+                            sender.sendMessage("You reached the maximum number of chunks you can forceload (" + count + ")!");
                         }
 
                     } else {
-                        sender.sendMessage("Du hast nicht genügend " + item_material.name() + ". Du brauchst " + item_min_count + "!");
+                        sender.sendMessage("You don't have enough " + item_material.name() + ". You need atleast " + item_min_count + "!");
                     }
                 } catch (Exception e) {
-                    sender.sendMessage("Error! " + e);
+                    sender.sendMessage("An error occurred whilst executing this command: " + e);
                 }
 
             }
-
+            return true;
         }
 
         return false;

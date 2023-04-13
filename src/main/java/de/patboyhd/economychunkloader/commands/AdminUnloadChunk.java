@@ -40,7 +40,7 @@ public class AdminUnloadChunk implements CommandExecutor{
                         this.data = new FileManager(this.plugin, data_name);
 
                         chunk.setForceLoaded(false);
-                        sender.sendMessage("This Chunk is no longer forceloaded: " + chunk_coords);
+                        sender.sendMessage("This chunk will now no longer be forceloaded: " + chunk_coords);
 
                         //Chunk aus der YAMl Datei löschen
                         String chunk_owner = data.getConfig().getString("chunks." + chunk_coords + ".owner");
@@ -54,7 +54,7 @@ public class AdminUnloadChunk implements CommandExecutor{
                         data.getConfig().set("chunks." + chunk_coords, null);
                         data.saveConfig();
                     } else {
-                        sender.sendMessage("Are you sure you want to un-forceload this Chunk?\nIf you are, type /unload_chunk confirm");
+                        sender.sendMessage("Are you sure you want to un-forceload this chunk?\nIf you are, type /unload_chunk confirm");
                     }
                 } else {
                     sender.sendMessage("This Chunk isn't forceloaded to begin with!");

@@ -54,7 +54,7 @@ public class UnloadChunk implements CommandExecutor{
                     if (uuid.toString().equals(uuid_data)) {
                         if (args.length >= 1 && args[0].equals("confirm")) {
                             chunk.setForceLoaded(false);
-                            sender.sendMessage("This Chunk is no longer forceloaded: " + chunk_coords);
+                            sender.sendMessage("This chunk will now no longer be forceloaded: " + chunk_coords);
 
                             //Chunk aus der YAMl Datei löschen und count senken
                             data.getConfig().set("chunks." + chunk_coords, null);
@@ -62,21 +62,21 @@ public class UnloadChunk implements CommandExecutor{
                             data.getConfig().set("chunks-count.count", data.getConfig().getInt("chunks-count.count") - 1);
                             data.saveConfig();
                         } else {
-                            sender.sendMessage("Are you sure you want to un-forceload this Chunk?\nIf you are, type /unload_chunk confirm");
+                            sender.sendMessage("Are you sure you want to un-forceload this chunk?\nIf you are, type /unload_chunk confirm");
                         }
 
                     } else {
-                        sender.sendMessage("You can't unload Chunks of other players!");
+                        sender.sendMessage("You can't unload chunks of other players!");
                     }
 
                 } else {
-                    sender.sendMessage("You can't unload Chunks of other players!");
+                    sender.sendMessage("You can't unload chunks of other players!");
                 }
 
             } else {
-                sender.sendMessage("This Chunk isn't forceloaded to begin with!");
+                sender.sendMessage("This chunk isn't forceloaded to begin with!");
             }
-
+            return true;
         }
         return false;
     }

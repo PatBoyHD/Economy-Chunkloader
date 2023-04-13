@@ -3,7 +3,7 @@ version: '1.0-SNAPSHOT'
 main: de.patboyhd.economychunkloader.Main
 api-version: 1.19
 authors: [ PatBoyHD ]
-description: Kleines Plugin, um Spieler gegen Austausch eine Währung Chunks laden zu lassen.
+description: This is a small plugin that lets players forceload chunks in exchange for a set payment.
 
 commands:
   load-chunk:

@@ -25,7 +25,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        this.getLogger().fine("Plugin wird aktiviert.");
+        this.getLogger().fine("Plugin is starting up.");
 
         this.saveDefaultConfig();//Create config file & folder
         this.data = new FileManager(this, data_name);
@@ -53,7 +53,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        Bukkit.getLogger().fine("Plugin wird deaktiviert.");
+        Bukkit.getLogger().fine("Plugin is shutting down.");
     }
 
     private void listenerRegistration() {
@@ -72,10 +72,10 @@ public final class Main extends JavaPlugin {
 
     private void setupFiles() {
         //config.yml
-        if (!config.getConfig().contains("Bezahlung.Item"))
-            config.getConfig().set("Bezahlung.Item","NETHERITE_INGOT");
-        if (!config.getConfig().contains("Bezahlung.Anzahl"))
-            config.getConfig().set("Bezahlung.Anzahl", 1);
+        if (!config.getConfig().contains("Payment.Item"))
+            config.getConfig().set("Payment.Item","NETHERITE_INGOT");
+        if (!config.getConfig().contains("Payment.Amount"))
+            config.getConfig().set("Payment.Amount", 1);
         if (!config.getConfig().contains("Max-Chunks"))
             config.getConfig().set("Max-Chunks", 3);
         if (!config.getConfig().contains("Max-Total-Chunks"))
@@ -137,7 +137,7 @@ public final class Main extends JavaPlugin {
                 }
             }
         } catch (Exception e) {
-            this.getLogger().info("Error loading chunks: " + e);
+            this.getLogger().info("An error occurred whilst trying to synchronize the forceloaded chunks with the plugins database: " + e);
         }
 
     }
