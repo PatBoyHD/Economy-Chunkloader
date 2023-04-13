@@ -1,5 +1,5 @@
 # Economy-Chunkloader
-This is a little plugin which allows players to forceload Chunks in exchange of a payment.
+This is a little 1.19.2 spigot plugin which allows players to forceload Chunks in exchange of a payment.
 
 I am new to plugins! If you find any bugs or if you have any issues or suggestions, please open an issue and tell me.
 
